@@ -8,30 +8,18 @@ import (
 	"os"
 )
 
-func gamma_rate(arr [12]int) int {
-	var gamma_rate int
+func calculate_decimal(arr [12]int, zero int, one int) int {
+	var dec int
 	for pos, el := range arr {
+		zo := zero
 		if el > 0 {
-			gamma_rate += 1 * int(math.Pow(2, float64(12-(pos+1))))
-		} else {
-			gamma_rate += 0 * int(math.Pow(2, float64(12-(pos+1))))
+			zo = one
 		}
+
+		dec += zo * int(math.Pow(2, float64(12-(pos+1))))
 	}
 
-	return gamma_rate
-}
-
-func gamma_epsilon(arr [12]int) int {
-	var epsilon int
-	for pos, el := range arr {
-		if el > 0 {
-			epsilon += 0 * int(math.Pow(2, float64(12-(pos+1))))
-		} else {
-			epsilon += 1 * int(math.Pow(2, float64(12-(pos+1))))
-		}
-	}
-
-	return epsilon
+	return dec
 }
 
 func main() {
@@ -56,8 +44,8 @@ func main() {
 		}
 	}
 
-	epsilon := gamma_epsilon(statut)
-	rate := gamma_rate(statut)
+	epsilon := calculate_decimal(statut, 1, 0)
+	rate := calculate_decimal(statut, 0, 1)
 
 	fmt.Println("Submarine:", epsilon*rate)
 
